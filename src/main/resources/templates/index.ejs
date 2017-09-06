@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="utf-8"/>
-    <title th:text="${title}"></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <!-- CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
 
     <!--<link rel="stylesheet" type="text/css" href="/home_page/css/normalize.css" />-->
     <!--<link rel="stylesheet" type="text/css" href="/home_page/css/demo.css" />-->
@@ -100,7 +100,7 @@
         }
 
     </style>
-    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -108,11 +108,11 @@
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png"/>
-    <link rel="shortcut icon" href="/assets/ico/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/assets/ico/favicon.png">
 </head>
 
 <body style="overflow:hidden">
@@ -128,27 +128,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="#" th:text="${title}"></a>
-                <!--<div class="nav-collapse collapse">-->
-                    <!--<ul class="nav">-->
-                        <!--<li><a href="#" onClick="toggleMenu('0')">直播列表</a></li>-->
-                        <!--<% if(!user_id){ %>-->
-                        <!--<li><a href="#register" onClick="toggleMenu('1')">新用户注册</a></li>-->
-                        <!--<% } else{ %>-->
-                        <!--<li><a href="#myroom" onClick="toggleMenu('2')">我只想看弹幕</a></li>-->
-                        <!--<% } %>-->
-                        <!--<li id="userTip">-->
-                            <!--<% if(!user_id){ %>-->
-                            <!--<a href="#login" onClick="toggleMenu('3')">登录我的账号</a>-->
-                            <!--<% }else{ %>-->
-                            <!--<a href="#usercenter">-->
-                                <!--<img src="/assets/img/head.jpg"-->
-                                     <!--style="height:20px;width:20px;border-radius: 10px"/>&nbsp;<%= myname %>-->
-                            <!--</a>-->
-                            <!--<% } %>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>&lt;!&ndash;/.nav-collapse &ndash;&gt;-->
+                <a class="brand" href="#"><%= title %></a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="#" onClick="toggleMenu('0')">直播列表</a></li>
+                        <% if(!user_id){ %>
+                        <li><a href="#register" onClick="toggleMenu('1')">新用户注册</a></li>
+                        <% } else{ %>
+                        <li><a href="#myroom" onClick="toggleMenu('2')">我只想看弹幕</a></li>
+                        <% } %>
+                        <li id="userTip">
+                            <% if(!user_id){ %>
+                            <a href="#login" onClick="toggleMenu('3')">登录我的账号</a>
+                            <% }else{ %>
+                            <a href="#usercenter">
+                                <img src="/assets/img/head.jpg"
+                                     style="height:20px;width:20px;border-radius: 10px"/>&nbsp;<%= myname %>
+                            </a>
+                            <% } %>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
         </div>
     </div>
@@ -168,7 +168,7 @@
         <div class="content">
             <div id="large-header" class="large-header">
                 <canvas id="demo-canvas"></canvas>
-                <h2 class="main-title"><span class="thin" style="background:rgba(0,0,0,0.6);border-radius: 60px;padding:6px 40px" th:text="${title}"></span></h2>
+                <h2 class="main-title"><span class="thin" style="background:rgba(0,0,0,0.6);border-radius: 60px;padding:6px 40px"><%=title%></span></h2>
             </div>
         </div>
     </div>
@@ -177,8 +177,8 @@
     <div class="container" id="regi" style="display:none">
         <form class="form-signin">
             <h3 class="form-signin-heading">&nbsp;&nbsp;用户注册</h3>
-            <input id="register_username" type="text" class="input-block-level" placeholder="账号"/>
-            <input id="register_password" type="password" class="input-block-level" placeholder="密码"/>
+            <input id="register_username" type="text" class="input-block-level" placeholder="账号">
+            <input id="register_password" type="password" class="input-block-level" placeholder="密码">
             <button onClick="register()" class="btn btn-large btn-success" type="button"><i class="icon-ok icon-white"
                                                                                             style="margin-left:-10px"></i>&nbsp;&nbsp;注册
             </button>
@@ -188,10 +188,10 @@
     <div class="container" id="login" style="display:none">
         <form class="form-signin">
             <h3 class="form-signin-heading">&nbsp;&nbsp;用户登录</h3>
-            <input id="username" type="text" class="input-block-level" placeholder="邮箱/账号/手机号"/>
-            <input id="password" type="password" class="input-block-level" placeholder="密码"/>
+            <input id="username" type="text" class="input-block-level" placeholder="邮箱/账号/手机号">
+            <input id="password" type="password" class="input-block-level" placeholder="密码">
             <label class="checkbox" style="font-size:16px">
-                <input type="checkbox" value="remember-me"/> 记住我
+                <input type="checkbox" value="remember-me"> 记住我
             </label>
             <button onClick="login()" class="btn btn-large btn-success" type="button"><i class="icon-ok icon-white"
                                                                                          style="margin-left:-10px"></i>&nbsp;&nbsp;登录
