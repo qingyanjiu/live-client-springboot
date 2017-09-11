@@ -19,4 +19,11 @@ public class IndexController {
         model.addAttribute("title",title);
         return "index";
     }
+
+    @RequestMapping("/login")
+    public String login(Model model){
+        model.addAttribute("title",title);
+        model.addAttribute("login",true);
+        return "index";
+    }
 }
