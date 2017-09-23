@@ -27,6 +27,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter implement
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
@@ -35,7 +36,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter implement
                 .permitAll()
                 .usernameParameter("userName")
                 .passwordParameter("password")
-//                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/")
 //                .successHandler(loginSuccessHandler())
                 .and()
                 .logout()
@@ -57,8 +58,8 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter implement
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService())
-                .passwordEncoder(new PlaintextPasswordEncoder());
-//                .passwordEncoder(passwordEncoder());
+//                .passwordEncoder(new PlaintextPasswordEncoder());
+                .passwordEncoder(passwordEncoder());
     }
 
     /**
