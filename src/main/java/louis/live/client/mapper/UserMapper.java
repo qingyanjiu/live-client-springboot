@@ -5,12 +5,14 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface UserMapper {
 
     @Select("SELECT * FROM user_info")
     @Results({
+            @Result(property = "id",  column = "id"),
             @Result(property = "userName",  column = "username"),
             @Result(property = "password", column = "password"),
             @Result(property = "gender", column = "gender"),
@@ -27,6 +29,7 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user_info WHERE id = #{id}")
     @Results({
+            @Result(property = "id",  column = "id"),
             @Result(property = "userName",  column = "username"),
             @Result(property = "password", column = "password"),
             @Result(property = "gender", column = "gender"),
@@ -44,6 +47,7 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user_info WHERE username = #{username}")
     @Results({
+            @Result(property = "id",  column = "id"),
             @Result(property = "userName",  column = "username"),
             @Result(property = "password", column = "password"),
             @Result(property = "gender", column = "gender"),
@@ -58,13 +62,16 @@ public interface UserMapper {
     })
     User findByName(String username);
 
-    @Insert("INSERT INTO users(username,password,gender) VALUES(#{userName}, #{passWord}, #{userSex})")
+    @Insert("INSERT INTO user_info VALUES(#{userName},#{password},#{gender},#{nick}," +
+            "#{registerDate},#{lastLoginDate},#{trueNameCert},#{trueName},#{phoneNumber},#{email},#{status})")
     void insert(User user);
 
-    @Update("UPDATE users SET userName=#{userName},nick_name=#{nickName} WHERE id =#{id}")
-    void update(User user);
+    @Update("update user_info set last_login_date=#{date} where id=#{id}")
+    void updateLoginDate(Map params);
 
-    @Delete("DELETE FROM users WHERE id =#{id}")
-    void delete(Long id);
+    @Update("update user_info set status=#{status} where id=#{id}")
+    void changeStatus(Map params);
 
+    @Select("select count(id) count from user_info where username=#{userName}")
+    int checkName(Map params);
 }
