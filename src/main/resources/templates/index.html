@@ -14,9 +14,9 @@
     <!--<link rel="stylesheet" type="text/css" href="/home_page/css/demo.css" />-->
     <!--<link rel="stylesheet" type="text/css" href="/home_page/css/component.css" />-->
 
-    <link rel="stylesheet" type="text/css" href="/home_page2/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="/home_page2/css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="/home_page2/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="/home_page2/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="/home_page2/css/demo.css"/>
+    <link rel="stylesheet" type="text/css" href="/home_page2/css/component.css"/>
 
     <style type="text/css">
 
@@ -132,10 +132,11 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li><a href="#" onClick="toggleMenu('0')">直播列表</a></li>
-                        <li th:if="${login == true}"><a href="#register" onClick="toggleMenu('1')">新用户注册</a></li>
+                        <li th:if="${login == null} or ${login == true}"><a href="#register" onClick="toggleMenu('1')">新用户注册</a>
+                        </li>
                         <li th:if="${login == false}"><a href="#myroom" onClick="toggleMenu('2')">我只想看弹幕</a></li>
                         <li id="userTip">
-                            <a th:if="${login == true}" href="#login" onClick="toggleMenu('3')">登录我的账号</a>
+                            <a th:if="${login == null} or ${login == true}" href="#login" onClick="toggleMenu('3')">登录我的账号</a>
                             <a th:if="${login == false}" href="#usercenter">
                                 <img src="/assets/img/head.jpg"
                                      style="height:20px;width:20px;border-radius: 10px"/>&nbsp;myname
@@ -150,19 +151,21 @@
     <!-- Begin page content -->
 
     <!--<div class="container demo-3" id="live" style="width:100% ">-->
-        <!--<div class="content">-->
-            <!--<div id="large-header" class="large-header">-->
-                <!--<canvas id="demo-canvas"></canvas>-->
-                <!--<h1 class="main-title"><span><%=title%></span></h1>-->
-            <!--</div>-->
-        <!--</div>-->
+    <!--<div class="content">-->
+    <!--<div id="large-header" class="large-header">-->
+    <!--<canvas id="demo-canvas"></canvas>-->
+    <!--<h1 class="main-title"><span><%=title%></span></h1>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
 
     <div class="container demo-1" id="live" style="width:100%">
         <div class="content">
             <div id="large-header" class="large-header">
                 <canvas id="demo-canvas"></canvas>
-                <h2 class="main-title"><span class="thin" style="background:rgba(0,0,0,0.6);border-radius: 60px;padding:6px 40px" th:text="${title}"></span></h2>
+                <h2 class="main-title"><span class="thin"
+                                             style="background:rgba(0,0,0,0.6);border-radius: 60px;padding:6px 40px"
+                                             th:text="${title}"></span></h2>
             </div>
         </div>
     </div>
@@ -196,10 +199,10 @@
 
 
 <!--<div id="footer">-->
-    <!--<div class="container">-->
-        <!--<p class="muted credit" style="color:#000000">PRIVATE直播&nbsp;&nbsp;&nbsp;&nbsp; <a-->
-                    <!--href="#" style="color:#333333">Louis.L</a></p>-->
-    <!--</div>-->
+<!--<div class="container">-->
+<!--<p class="muted credit" style="color:#000000">PRIVATE直播&nbsp;&nbsp;&nbsp;&nbsp; <a-->
+<!--href="#" style="color:#333333">Louis.L</a></p>-->
+<!--</div>-->
 <!--</div>-->
 
 
@@ -235,11 +238,12 @@
 <script src="/assets/js/bootstrap-collapse.js"></script>
 <script src="/assets/js/bootstrap-carousel.js"></script>
 <script src="/assets/js/bootstrap-typeahead.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.js"></script>
 
 <script th:inline="javascript">
-    $(function(){
+    $(function () {
         var isLogin = [[${login}]];
-        if(isLogin){
+        if (isLogin) {
             $("#login").show();
             $("#live").hide();
             $("#regi").hide();
@@ -280,11 +284,13 @@
             //提交数据的类型 POST GET
             type: "POST",
             //提交的网址
-            url: "/user/register",
+            url: "/users/add",
             //提交的数据
             data: {
-                username: $("#register_username").val(),
-                password: $("#register_password").val()
+                userName: $("#register_username").val(),
+                password: $("#register_password").val(),
+                registerDate: moment().format('YYYY-MM-DD hh:mm:ss'),
+                lastLoginDate: moment().format('YYYY-MM-DD hh:mm:ss')
             },
             //返回数据的格式
             datatype: "json",

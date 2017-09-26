@@ -39,7 +39,13 @@ public class UserController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public void add(User user) {
+    public void add(String userName, String password, String lastLoginDate, String registerDate) {
+        User user = new User();
+        user.setUserName(userName);
+        user.setPassword(password);
+        user.setStatus("1");
+        user.setLastLoginDate(lastLoginDate);
+        user.setRegisterDate(registerDate);
         userService.addUser(user);
     }
 
