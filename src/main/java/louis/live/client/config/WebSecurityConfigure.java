@@ -29,6 +29,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter implement
                 .antMatchers("/login").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/users/**").permitAll()
+                .antMatchers("/lives/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
