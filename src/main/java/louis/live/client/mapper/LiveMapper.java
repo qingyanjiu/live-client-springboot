@@ -23,7 +23,7 @@ public interface LiveMapper {
     })
     List<LiveInfo> getAll();
 
-    @Insert("INSERT INTO live_info VALUES(#{id},#{userId},#{startTime},#{endTime}," +
+    @Insert("INSERT INTO live_info VALUES(#{id},#{userId},sysdate,#{endTime}," +
             "#{streamCode},#{status},#{liveName},#{password})")
     void add(Live live);
 
@@ -59,8 +59,9 @@ public interface LiveMapper {
     })
     List<Live> getHistoryLivesOfUser(Map params);
 
-    @Select("select * from live_list where username=${userName} and status in ('0','9')")
+    @Select("select * from live_list where userid=${userId} and status in ('0','9')")
     @Results({
+            @Result(property = "userId", column = "userid"),
             @Result(property = "userName", column = "username"),
             @Result(property = "trueName", column = "true_name"),
             @Result(property = "startTime", column = "start_time"),

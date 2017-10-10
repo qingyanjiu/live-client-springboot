@@ -6,7 +6,7 @@ public class Live {
     private String startTime;
     private String endTime;
     private String streamCode;
-    private String status;
+    private String status = "0";
     private String liveName;
     private String password;
 
