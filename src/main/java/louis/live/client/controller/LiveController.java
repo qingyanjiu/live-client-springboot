@@ -5,6 +5,7 @@ import louis.live.client.vo.Live;
 import louis.live.client.vo.LiveInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,9 +62,11 @@ public class LiveController {
         return liveService.getHistoryLivesOfUser(params);
     }
 
-    @RequestMapping("/getByName")
+    @RequestMapping("/findByName/{liveName}")
     @ResponseBody
-    public List<Live> getLiveByName(Map params){
+    public List<Live> getLiveByName(@PathVariable("liveName") String liveName){
+        Map params = new HashMap();
+        params.put("liveName",liveName);
         return liveService.getLiveByName(params);
     }
 
