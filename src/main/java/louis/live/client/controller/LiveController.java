@@ -5,10 +5,12 @@ import louis.live.client.vo.Live;
 import louis.live.client.vo.LiveInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,24 @@ public class LiveController {
 
     @Autowired
     LiveService liveService;
+
+    @RequestMapping("/toList")
+    public String toList(Model model) {
+        List<LiveInfo> lives = new ArrayList();
+        lives = liveService.getAll();
+        model.addAttribute("lives",lives);
+        return "live_list";
+    }
+
+    @RequestMapping("/toLive")
+    public String toLive(Model model,String userId){
+        Map params = new HashMap();
+        params.put("userId",userId);
+        Live live = new Live();
+        live = liveService.getActiveLiveOfUser(params);
+        model.addAttribute("live",live);
+        return "live_room";
+    }
 
     @RequestMapping("/")
     @ResponseBody
@@ -44,14 +64,6 @@ public class LiveController {
         Map params = new HashMap();
         params.put("streamCode",streamCode);
         liveService.end(params);
-    }
-
-    @RequestMapping("/current")
-    @ResponseBody
-    public Live getActiveLiveOfUser(String userId){
-        Map params = new HashMap();
-        params.put("userId",userId);
-        return liveService.getActiveLiveOfUser(params);
     }
 
     @RequestMapping("/history")
