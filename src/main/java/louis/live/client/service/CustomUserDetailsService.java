@@ -7,8 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.thymeleaf.expression.Sets;
 
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Created by user on 2017/5/11.
@@ -26,7 +27,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new UserDetails() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
-                return null;
+                List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+                GrantedAuthority authority = new GrantedAuthority() {
+                    public String getAuthority() {
+                        return "ROLE_USER";
+                    }
+                };
+                list.add(authority);
+                return list;
             }
 
             @Override

@@ -26,7 +26,9 @@ public class LiveController {
     public String toList(Model model) {
         List<LiveInfo> lives = new ArrayList();
         lives = liveService.getAll();
+        String title = "直播列表";
         model.addAttribute("lives",lives);
+        model.addAttribute("title",title);
         return "live_list";
     }
 

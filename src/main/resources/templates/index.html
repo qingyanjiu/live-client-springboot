@@ -185,8 +185,8 @@
     <div class="container" id="login" style="display:none">
         <form id="loginForm" action="/login" method="POST" class="form-signin">
             <h3 class="form-signin-heading">&nbsp;&nbsp;用户登录</h3>
-            <input id="userName" type="text" class="input-block-level" placeholder="邮箱/账号/手机号"/>
-            <input id="password" type="password" class="input-block-level" placeholder="密码"/>
+            <input name="userName" id="userName" type="text" class="input-block-level" placeholder="邮箱/账号/手机号"/>
+            <input name="password" id="password" type="password" class="input-block-level" placeholder="密码"/>
             <label class="checkbox" style="font-size:16px">
                 <input type="checkbox" value="remember-me"/> 记住我
             </label>
@@ -254,7 +254,7 @@
 
     function toggleMenu(obj) {
         if (obj == '0') {
-            document.location = "/live/list";
+            document.location = "/live/toList";
         }
         else if (obj == '1') {
             $("#login").hide();

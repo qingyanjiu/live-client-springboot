@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -66,6 +65,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter implement
 
     /**
      * 设置用户密码的加密方式为MD5加密
+     *
      * @return
      */
     @Bean
@@ -76,10 +76,11 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter implement
 
     /**
      * 自定义UserDetailsService，从数据库中读取用户信息
+     *
      * @return
      */
     @Bean
-    public CustomUserDetailsService customUserDetailsService(){
+    public CustomUserDetailsService customUserDetailsService() {
         return new CustomUserDetailsService();
     }
 
