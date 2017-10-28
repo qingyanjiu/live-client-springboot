@@ -33,7 +33,7 @@ public interface LiveMapper {
     @Update("update live_info set end_time=#{endTime},status='1' where streamcode=#{streamCode}")
     void end(Map params);
 
-    @Select("select * from live_info where user_id=${userId} and status in ('0','9')")
+    @Select("select * from live_list where username=#{userName} and status in ('0','9')")
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "userId", column = "user_id"),
@@ -44,7 +44,7 @@ public interface LiveMapper {
             @Result(property = "liveName", column = "live_name"),
             @Result(property = "password", column = "password")
     })
-    Live getActiveLiveOfUser(Map params);
+    LiveInfo getActiveLiveOfUser(Map params);
 
     @Select("select * from live_info where user_id=#{userId} order by start_time desc")
     @Results({

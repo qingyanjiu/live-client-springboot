@@ -38,7 +38,7 @@ public class LiveService {
         liveMapper.end(params);
     }
 
-    public Live getActiveLiveOfUser(Map params){
+    public LiveInfo getActiveLiveOfUser(Map params){
         return liveMapper.getActiveLiveOfUser(params);
     }
 

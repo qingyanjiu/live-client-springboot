@@ -22,6 +22,12 @@ public class LiveController {
     @Autowired
     LiveService liveService;
 
+    @RequestMapping("/")
+    @ResponseBody
+    public List<LiveInfo> getAll() {
+        return liveService.getAll();
+    }
+
     @RequestMapping("/toList")
     public String toList(Model model) {
         List<LiveInfo> lives = new ArrayList();
@@ -32,20 +38,29 @@ public class LiveController {
         return "live_list";
     }
 
-    @RequestMapping("/toLive")
-    public String toLive(Model model,String userId){
-        Map params = new HashMap();
-        params.put("userId",userId);
-        Live live = new Live();
-        live = liveService.getActiveLiveOfUser(params);
-        model.addAttribute("live",live);
-        return "live_room";
+    @RequestMapping("/userpage")
+    public String myroom(Model model) {
+        List<LiveInfo> lives = new ArrayList();
+        lives = liveService.getAll();
+        String title = "我的直播间";
+        model.addAttribute("lives",lives);
+        model.addAttribute("title",title);
+        return "live_list";
     }
 
-    @RequestMapping("/")
-    @ResponseBody
-    public List<LiveInfo> getAll() {
-        return liveService.getAll();
+    @RequestMapping("/show/{userName}")
+    public String toLive(Model model,
+                         @PathVariable("userName") String userName){
+        String result = "live_room";
+        Map params = new HashMap();
+        params.put("userName",userName);
+        LiveInfo live = new LiveInfo();
+        live = liveService.getActiveLiveOfUser(params);
+        if(live == null)
+            result = "noLive";
+        else
+            model.addAttribute("live",live);
+        return result;
     }
 
     @RequestMapping("/add")
