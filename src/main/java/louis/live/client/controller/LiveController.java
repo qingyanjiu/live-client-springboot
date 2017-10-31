@@ -48,9 +48,8 @@ public class LiveController {
         return "live_list";
     }
 
-    @RequestMapping("/show/{userName}")
-    public String toLive(Model model,
-                         @PathVariable("userName") String userName){
+    @RequestMapping("/show")
+    public String toLive(Model model,String userName){
         String result = "live_room";
         Map params = new HashMap();
         params.put("userName",userName);
