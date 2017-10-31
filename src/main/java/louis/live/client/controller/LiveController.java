@@ -4,6 +4,7 @@ import louis.live.client.service.LiveService;
 import louis.live.client.vo.Live;
 import louis.live.client.vo.LiveInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,9 @@ public class LiveController {
     @Autowired
     LiveService liveService;
 
+    @Value("${live.server.snapshoturl}")
+    private String snapshotUrl;
+
     @RequestMapping("/")
     @ResponseBody
     public List<LiveInfo> getAll() {
@@ -35,6 +39,7 @@ public class LiveController {
         String title = "直播列表";
         model.addAttribute("lives",lives);
         model.addAttribute("title",title);
+        model.addAttribute("snapshotUrl",snapshotUrl);
         return "live_list";
     }
 
