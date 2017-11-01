@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,9 @@ public class LiveController {
     @Value("${live.server.snapshoturl}")
     private String snapshotUrl;
 
+    @Value("${live.server.streamUrl}")
+    private String streamUrl;
+
     @RequestMapping("/")
     @ResponseBody
     public List<LiveInfo> getAll() {
@@ -40,17 +44,22 @@ public class LiveController {
         model.addAttribute("lives",lives);
         model.addAttribute("title",title);
         model.addAttribute("snapshotUrl",snapshotUrl);
+        model.addAttribute("streamUrl",streamUrl);
         return "live_list";
     }
 
     @RequestMapping("/userpage")
-    public String myroom(Model model) {
-        List<LiveInfo> lives = new ArrayList();
-        lives = liveService.getAll();
-        String title = "我的直播间";
-        model.addAttribute("lives",lives);
+    public String myroom(Model model, HttpServletRequest request) {
+        Map params = new HashMap();
+        LiveInfo live = new LiveInfo();
+        String userName = request.getUserPrincipal().getName();
+        params.put("userName",userName);
+        live = liveService.getActiveLiveOfUser(params);
+        String title = "我的房间";
+        model.addAttribute("live",live);
         model.addAttribute("title",title);
-        return "live_list";
+        model.addAttribute("streamUrl",streamUrl);
+        return "user_page";
     }
 
     @RequestMapping("/show")

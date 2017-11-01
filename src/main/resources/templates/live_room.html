@@ -170,7 +170,7 @@
 
     <!-- Begin page content -->
 
-    <div th:if="${live.password == null}" class="container" id="live">
+    <div th:if="${live.password == null || live.password == ''}" class="container" id="live">
         <div style="position: absolute;left: 50%;height:800px">
             <!-- 弹幕区域 -->
             <main id="main"
@@ -192,12 +192,11 @@
 
                 <div class="prism-player" id="J_prismPlayer"></div>
                 <script th:inline="javascript">
-                    var streamUrl = '';
-                    var streamName = [[${live.liveName}]];
+                    var streamUrl = [[${streamUrl}]];
                     var streamCode = [[${live.streamCode}]];
                     var player = new prismplayer({
                         id: "J_prismPlayer", // 容器id
-                        source: "rtmp://"+streamUrl+"/"+ streamName +"/"+streamCode,  // 视频url 支持互联网可直接访问的视频地址
+                        source: streamUrl+streamCode,  // 视频url 支持互联网可直接访问的视频地址
                         autoplay: true,      // 自动播放
                         width: "100%",       // 播放器宽度
                         height: "500px",      // 播放器高度
@@ -234,7 +233,7 @@
         </div>
     </div>
 
-    <div th:if="${live.password != null}" class="container" id="cont">
+    <div th:if="${live.password != null and live.password != ''}" class="container" id="cont">
         <form class="form-signin">
             <h3 class="form-signin-heading">&nbsp;&nbsp;房间已加密</h3>
             <input id="room_password" type="password" class="input-block-level" placeholder="请输入密码"/>
@@ -307,7 +306,7 @@
 
     function toggleMenu(obj) {
         if (obj == '0') {
-            document.location = "/live/list";
+            document.location = "/live/toList";
         }
         else if (obj == '1') {
             $("#login").hide();
