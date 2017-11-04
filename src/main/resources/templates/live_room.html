@@ -170,7 +170,7 @@
 
     <!-- Begin page content -->
 
-    <div th:if="${live.password == null || live.password == ''}" class="container" id="live">
+    <div th:if="${pass == true}" class="container" id="live">
         <div style="position: absolute;left: 50%;height:800px">
             <!-- 弹幕区域 -->
             <main id="main"
@@ -233,7 +233,7 @@
         </div>
     </div>
 
-    <div th:if="${live.password != null and live.password != ''}" class="container" id="cont">
+    <div th:if="${pass != true}" class="container" id="cont">
         <form class="form-signin">
             <h3 class="form-signin-heading">&nbsp;&nbsp;房间已加密</h3>
             <input id="room_password" type="password" class="input-block-level" placeholder="请输入密码"/>
@@ -301,6 +301,7 @@
 <script src="/assets/js/bootstrap-typeahead.js"></script>
 
 <script th:inline="javascript">
+    //<![CDATA[
 
     var streamCode = [[${live.streamCode}]];
 
@@ -485,10 +486,11 @@
     }
 
     //进入加密房间
-    function enterRoom(userName) {
-        document.location = "/live/show/"+userName+"?password="+$("#room_password").val();
+    function enterRoom() {
+        document.location = "/live/show?userName="+[[${live.userName}]]+"&password="+$("#room_password").val();
     }
 
+    //]]>
 </script>
 
 </body>

@@ -33,7 +33,11 @@ public interface LiveMapper {
     @Update("update live_info set end_time=#{endTime},status='1' where streamcode=#{streamCode}")
     void end(Map params);
 
-    @Select("select * from live_list where username=#{userName} and status in ('0','9')")
+    @Select({"<script>",
+            "select * from live_list where username=#{userName} ",
+            "and status in ('0','9')",
+            "</script>"
+    })
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "userId", column = "user_id"),

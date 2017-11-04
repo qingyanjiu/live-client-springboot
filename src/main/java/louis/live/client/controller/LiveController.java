@@ -41,10 +41,9 @@ public class LiveController {
         List<LiveInfo> lives = new ArrayList();
         lives = liveService.getAll();
         String title = "直播列表";
-        model.addAttribute("lives",lives);
-        model.addAttribute("title",title);
-        model.addAttribute("snapshotUrl",snapshotUrl);
-        model.addAttribute("streamUrl",streamUrl);
+        model.addAttribute("lives", lives);
+        model.addAttribute("title", title);
+        model.addAttribute("snapshotUrl", snapshotUrl);
         return "live_list";
     }
 
@@ -53,34 +52,44 @@ public class LiveController {
         Map params = new HashMap();
         LiveInfo live = new LiveInfo();
         String userName = request.getUserPrincipal().getName();
-        params.put("userName",userName);
+        params.put("userName", userName);
         live = liveService.getActiveLiveOfUser(params);
         String title = "我的房间";
-        model.addAttribute("live",live);
-        model.addAttribute("title",title);
-        model.addAttribute("streamUrl",streamUrl);
+        model.addAttribute("live", live);
+        model.addAttribute("title", title);
+        model.addAttribute("streamUrl", streamUrl);
         return "user_page";
     }
 
     @RequestMapping("/show")
-    public String toLive(Model model,String userName){
+    public String toLive(Model model, String userName, String password) {
         String result = "live_room";
         Map params = new HashMap();
-        params.put("userName",userName);
+        params.put("userName", userName);
         LiveInfo live = new LiveInfo();
         live = liveService.getActiveLiveOfUser(params);
-        if(live == null)
+        if (live == null) {
             result = "noLive";
-        else
-            model.addAttribute("live",live);
+        } else {
+            if (password != null) {
+                if (password.equals(live.getPassword()))
+                    model.addAttribute("pass", true);
+                else
+                    model.addAttribute("pass", false);
+            }
+            else
+                model.addAttribute("pass", true);
+            model.addAttribute("live", live);
+            model.addAttribute("streamUrl", streamUrl);
+        }
         return result;
     }
 
     @RequestMapping("/add")
-    public void add(String userId,String liveName) {
+    public void add(String userId, String liveName) {
         Map params = new HashMap();
-        params.put("userId",userId);
-        params.put("liveName",liveName);
+        params.put("userId", userId);
+        params.put("liveName", liveName);
         liveService.add(params);
     }
 
@@ -90,41 +99,41 @@ public class LiveController {
 //    }
 
     @RequestMapping("/end")
-    public void end(String streamCode){
+    public void end(String streamCode) {
         Map params = new HashMap();
-        params.put("streamCode",streamCode);
+        params.put("streamCode", streamCode);
         liveService.end(params);
     }
 
     @RequestMapping("/history")
     @ResponseBody
-    public List<Live> getHistoryLivesOfUser(String userId){
+    public List<Live> getHistoryLivesOfUser(String userId) {
         Map params = new HashMap();
-        params.put("userId",userId);
+        params.put("userId", userId);
         return liveService.getHistoryLivesOfUser(params);
     }
 
     @RequestMapping("/findByName/{liveName}")
     @ResponseBody
-    public List<Live> getLiveByName(@PathVariable("liveName") String liveName){
+    public List<Live> getLiveByName(@PathVariable("liveName") String liveName) {
         Map params = new HashMap();
-        params.put("liveName",liveName);
+        params.put("liveName", liveName);
         return liveService.getLiveByName(params);
     }
 
     @RequestMapping("/updateName")
-    public void updateLiveName(String streamCode,String liveName){
+    public void updateLiveName(String streamCode, String liveName) {
         Map params = new HashMap();
-        params.put("streamCode",streamCode);
-        params.put("liveName",liveName);
+        params.put("streamCode", streamCode);
+        params.put("liveName", liveName);
         liveService.updateLiveName(params);
     }
 
     @RequestMapping("/updatePassword")
-    public void updateLivePassword(String streamCode,String password){
+    public void updateLivePassword(String streamCode, String password) {
         Map params = new HashMap();
-        params.put("streamCode",streamCode);
-        params.put("password",password);
+        params.put("streamCode", streamCode);
+        params.put("password", password);
         liveService.updateLivePassword(params);
     }
 
