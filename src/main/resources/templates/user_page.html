@@ -335,14 +335,6 @@
                     alert(data.error);
                 }
                 else {
-//                    $("#livename").remove();
-//                    $("#startLiveButton").before('<p id="codetip" style="font-size:14px;color:#FFFFFF">已开启直播,推流码：&nbsp;&nbsp;<span id="mycode">' + data.result + '</span></p>');
-//                    $("#startLiveButton").removeClass("btn-success");
-//                    $("#startLiveButton").addClass("btn-primary");
-//                    $("#startLiveButton").text("分享直播间");
-//                    $("#startLiveButton").attr("onclick", "endLive('" + id + "')");
-//                    $("#streamcode").text(data.result);
-//                    $('#myModal').modal('show');
                     swal({
                         title: "成功",
                         text: "直播间已开启",
@@ -395,12 +387,6 @@
                             alert("系统错误，请稍后再试");
                         }
                         else if (data.result == "success") {
-//                            $("#codetip").remove();
-//                            $("#startLiveButton").removeClass("btn-danger");
-//                            $("#startLiveButton").addClass("btn-success");
-//                            $("#startLiveButton").text("开启直播");
-//                            $("#startLiveButton").attr("onclick", "startLive('" + id + "')");
-//                            $("#startLiveButton").before('<input id="livename" type="text" style="width:360px;height:30px;margin:5px" placeholder="请输入直播间名称"/>');
                             swal({
                                 title: "成功",
                                 text: "直播间已关闭",

@@ -62,7 +62,7 @@ public interface UserMapper {
     })
     User findByName(String username);
 
-    @Insert("INSERT INTO user_info VALUES(#{userName},#{password},#{gender},#{nick}," +
+    @Insert("INSERT INTO user_info VALUES(#{id},#{userName},#{password},#{gender},#{nick}," +
             "#{registerDate},#{lastLoginDate},#{trueNameCert},#{trueName},#{phoneNumber},#{email},#{status})")
     void insert(User user);
 

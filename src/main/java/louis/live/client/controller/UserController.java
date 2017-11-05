@@ -1,6 +1,7 @@
 package louis.live.client.controller;
 
 import louis.live.client.service.UserService;
+import louis.live.client.uitls.Tools;
 import louis.live.client.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,14 +45,25 @@ public class UserController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public void add(String userName, String password, String lastLoginDate, String registerDate) {
+    public Map add(String userName, String password) {
+        Map result = new HashMap();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
         User user = new User();
+        user.setId(Tools.generateUUID());
         user.setUserName(userName);
-        user.setPassword(password);
+        try {
+            user.setPassword(Tools.encoderByMd5(password));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         user.setStatus("1");
-        user.setLastLoginDate(lastLoginDate);
-        user.setRegisterDate(registerDate);
-        userService.addUser(user);
+        user.setLastLoginDate(sdf.format(new Date()));
+        user.setRegisterDate(sdf.format(new Date()));
+        String ret = userService.addUser(user);
+        result.put("result",ret);
+        return result;
     }
 
     @RequestMapping("/checkName")

@@ -25,8 +25,21 @@ public class UserService {
         return userMapper.findByName(userName);
     }
 
-    public void addUser(User user){
-        userMapper.insert(user);
+    public String addUser(User user){
+        String ret = "";
+        User existUser = new User();
+        existUser = getByName(user.getUserName());
+        if(existUser == null) {
+            try {
+                userMapper.insert(user);
+                ret = "success";
+            }catch(Exception e){
+                ret = "error";
+            }
+        }
+        else
+            ret = "exist";
+        return ret;
     }
 
     public void updateLoginDate(Map params){
