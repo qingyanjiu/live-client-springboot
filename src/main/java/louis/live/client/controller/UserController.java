@@ -51,18 +51,12 @@ public class UserController {
         User user = new User();
         user.setId(Tools.generateUUID());
         user.setUserName(userName);
-        try {
-            user.setPassword(Tools.encoderByMd5(password));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        user.setPassword(Tools.encoderByMd5(password));
         user.setStatus("1");
         user.setLastLoginDate(sdf.format(new Date()));
         user.setRegisterDate(sdf.format(new Date()));
         String ret = userService.addUser(user);
-        result.put("result",ret);
+        result.put("result", ret);
         return result;
     }
 

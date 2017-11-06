@@ -77,8 +77,12 @@ public class LiveController {
                 else
                     model.addAttribute("pass", false);
             }
-            else
-                model.addAttribute("pass", true);
+            else{
+                if (live.getPassword() == null)
+                    model.addAttribute("pass", true);
+                else
+                    model.addAttribute("pass", false);
+            }
             model.addAttribute("live", live);
             model.addAttribute("streamUrl", streamUrl);
         }
