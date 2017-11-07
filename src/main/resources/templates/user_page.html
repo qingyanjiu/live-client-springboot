@@ -212,7 +212,7 @@
                 </a>
 
                 <a id="startLiveButton" href="#"
-                   style="margin-left:20px;font-size:16px;color:#FF0000" onclick="'javascript:endLive(\''+${live.userName}+'\')'">关闭直播
+                   style="margin-left:20px;font-size:16px;color:#FF0000" th:onclick="'javascript:endLive(\''+${live.streamCode}+'\')'">关闭直播
                 </a>
             </p>
             <button id="startLiveButton" class="btn btn-large btn-block btn-primary" type="button"
@@ -223,7 +223,7 @@
             <div th:if="${live.streamCode} == null or ${live.streamCode} == ''">
             <input id="livename" type="text" style="width:360px;height:30px;margin:5px" placeholder="请输入直播间名称"/>
             <button id="startLiveButton" class="btn btn-large btn-success" type="button"
-                    onclick="'javascript:startLive(\''+${live.userName}+'\')'">开启直播
+                    th:onclick="'javascript:startLive(\''+${live.userName}+'\')'">开启直播
             </button>
             </div>
 
@@ -313,7 +313,7 @@
         }
     }
 
-    function startLive(id) {
+    function startLive(userName) {
         if ($("#livename").val() == "") {
             swal("注意！", "直播间名字不能为空！", "error");
             return;
@@ -325,7 +325,7 @@
             url: "/live/add",
             //提交的数据
             data: {
-                userId: id,
+                userName: userName,
                 liveName: $("#livename").val()
             },
             //返回数据的格式
@@ -357,7 +357,7 @@
         });
     }
 
-    function endLive(id) {
+    function endLive(streamCode) {
         swal({
             title: "请三思",
             text: "你确定要关闭直播吗？\n再次开启直播码就会变化哦！\n客户端就要重新设置哦！\n放着不关闭也不会少块肉的哦！",
@@ -378,7 +378,7 @@
                     url: "/live/end",
                     //提交的数据
                     data: {
-                        streamCode: $("#mycode").text(),
+                        streamCode: streamCode,
                     },
                     //返回数据的格式
                     datatype: "json",
@@ -436,7 +436,7 @@
                 //提交数据的类型 POST GET
                 type: "POST",
                 //提交的网址
-                url: "/live/updateRoomName",
+                url: "/live/updateName",
                 //提交的数据
                 data: {
                     streamCode: [[${live.streamCode}]],
@@ -477,10 +477,10 @@
                 //提交数据的类型 POST GET
                 type: "POST",
                 //提交的网址
-                url: "/live/updateLivePassword",
+                url: "/live/updatePassword",
                 //提交的数据
                 data: {
-                    live_id: [[${live.streamCode}]],
+                    streamCode: [[${live.streamCode}]],
                     password:inputValue
                 },
                 //返回数据的格式

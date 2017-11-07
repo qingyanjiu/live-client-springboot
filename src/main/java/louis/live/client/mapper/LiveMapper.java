@@ -23,14 +23,14 @@ public interface LiveMapper {
     })
     List<LiveInfo> getAll();
 
-    @Insert("INSERT INTO live_info VALUES(#{id},#{userId},sysdate,#{endTime}," +
+    @Insert("INSERT INTO live_info VALUES(#{id},#{userId},sysdate(),#{endTime}," +
             "#{streamCode},#{status},#{liveName},#{password})")
     void add(Live live);
 
-    @Update("update live_info set status='1' where user_id=${userId} and status='0'")
-    void delete(Map params);
+//    @Update("update live_info set status='1' where user_id=${userId} and status='0'")
+//    void delete(Map params);
 
-    @Update("update live_info set end_time=#{endTime},status='1' where streamcode=#{streamCode}")
+    @Update("update live_info set end_time=sysdate(),status='1' where streamcode=#{streamCode}")
     void end(Map params);
 
     @Select({"<script>",

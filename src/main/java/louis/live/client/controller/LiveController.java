@@ -90,11 +90,20 @@ public class LiveController {
     }
 
     @RequestMapping("/add")
-    public void add(String userId, String liveName) {
+    @ResponseBody
+    public Map add(String userName, String liveName) {
+        Map result = new HashMap();
         Map params = new HashMap();
-        params.put("userId", userId);
+        params.put("userName", userName);
         params.put("liveName", liveName);
-        liveService.add(params);
+        try {
+            liveService.add(params);
+            result.put("result","success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("result","error");
+        }
+        return result;
     }
 
 //    @RequestMapping("/delete")
@@ -103,10 +112,19 @@ public class LiveController {
 //    }
 
     @RequestMapping("/end")
-    public void end(String streamCode) {
+    @ResponseBody
+    public Map end(String streamCode) {
+        Map result = new HashMap();
         Map params = new HashMap();
         params.put("streamCode", streamCode);
-        liveService.end(params);
+        try {
+            liveService.end(params);
+            result.put("result","success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("result","error");
+        }
+        return result;
     }
 
     @RequestMapping("/history")
@@ -126,19 +144,37 @@ public class LiveController {
     }
 
     @RequestMapping("/updateName")
-    public void updateLiveName(String streamCode, String liveName) {
+    @ResponseBody
+    public Map updateLiveName(String streamCode, String liveName) {
+        Map result = new HashMap();
         Map params = new HashMap();
         params.put("streamCode", streamCode);
         params.put("liveName", liveName);
-        liveService.updateLiveName(params);
+        try {
+            liveService.updateLiveName(params);
+            result.put("result","success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("result","error");
+        }
+        return result;
     }
 
     @RequestMapping("/updatePassword")
-    public void updateLivePassword(String streamCode, String password) {
+    @ResponseBody
+    public Map updateLivePassword(String streamCode, String password) {
+        Map result = new HashMap();
         Map params = new HashMap();
         params.put("streamCode", streamCode);
         params.put("password", password);
-        liveService.updateLivePassword(params);
+        try {
+            liveService.updateLivePassword(params);
+            result.put("result","success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("result","error");
+        }
+        return result;
     }
 
 
