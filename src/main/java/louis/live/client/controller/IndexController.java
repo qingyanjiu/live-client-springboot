@@ -5,11 +5,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
 //@PropertySource(value = {"classpath:application.properties"},encoding="utf-8")
 public class IndexController {
+
+    @Value("${live.server.snapshoturl}")
+    private String profile;
 
     @Value("${live.client.title}")
     private String title;
@@ -24,5 +28,11 @@ public class IndexController {
     public String login(Model model){
         model.addAttribute("title",title);
         return "index";
+    }
+
+    @RequestMapping("/profile")
+    @ResponseBody
+    public String profile(Model model){
+        return this.profile;
     }
 }
