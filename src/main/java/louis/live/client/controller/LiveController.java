@@ -177,5 +177,17 @@ public class LiveController {
         return result;
     }
 
+    @RequestMapping("/danmuList")
+    public String danmuList(Model model,HttpServletRequest request) {
+        Map params = new HashMap();
+        String userName = request.getUserPrincipal().getName();
+        params.put("userName", userName);
+        LiveInfo live = liveService.getActiveLiveOfUser(params);
+        if(live != null){
+            model.addAttribute("streamCode",live.getStreamCode());
+        }
+        return "danmuList";
+    }
+
 
 }
