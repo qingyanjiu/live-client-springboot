@@ -138,7 +138,7 @@
                         <li id="userTip">
                             <a th:if="${session.SPRING_SECURITY_CONTEXT == null}" href="#login" onClick="toggleMenu('3')">登录我的账号</a>
                             <a th:if="${session.SPRING_SECURITY_CONTEXT != null}" href="#usercenter">
-                                <img src="/assets/img/head.jpg"
+                                <img src="/assets/img/head.jpg" onClick="toggleMenu('9')"
                                      style="height:20px;width:20px;border-radius: 10px"/>
                                 <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></span>
                             </a>
@@ -271,6 +271,9 @@
             $("#live").hide();
             $("#regi").hide();
             $("#cont").hide();
+        }
+        else if (obj == '9') {
+            document.location = "/live/userpage";
         }
     }
 
