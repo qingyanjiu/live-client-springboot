@@ -4,4 +4,4 @@ WORKDIR /client
 RUN mvn package -Dmaven.test.skip=true
 RUN ls target
 EXPOSE 8000
-CMD java -jar target/*.jar
+CMD java -jar -Dcustom.server.url=$CONFIG_SERVER_URL target/*.jar
