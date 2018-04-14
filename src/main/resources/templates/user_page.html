@@ -140,20 +140,20 @@
         <h4 id="myModalLabel">直播分享</h4>
     </div>
     <div th:if="${live.streamCode}" class="modal-body">
-        <p style="font-size:18px">您的移动端直播间地址</p>
+        <!--<p style="font-size:18px">您的移动端直播间地址</p>-->
 
-        <p id="mobileStreamcode" style="color:red">
-            <script th:inline="javascript">
-                var url = 'http://'+document.location.host+'/live/mobile/'+[[${live.streamCode}]];
-                $("#mobileStreamcode").text(url);
-            </script>
-        </p>
+        <!--<p id="mobileStreamcode" style="color:red">-->
+            <!--<script th:inline="javascript">-->
+                <!--var url = 'http://'+document.location.host+'/live/mobile/'+[[${live.userName}]];-->
+                <!--$("#mobileStreamcode").text(url);-->
+            <!--</script>-->
+        <!--</p>-->
 
         <p style="font-size:18px">您的PC端直播间地址</p>
 
         <p id="streamcode" style="color:red">
             <script th:inline="javascript">
-                var url = 'http://'+document.location.host+'/live/show/'+[[${live.streamCode}]];
+                var url = 'http://'+document.location.host+'/live/show?userName='+[[${live.userName}]];
                 $("#streamcode").text(url);
             </script>
         </p>
