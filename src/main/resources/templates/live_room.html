@@ -132,6 +132,7 @@
 
     <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/1.5.2/skins/default/index-min.css" />
     <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.5.2/prism-min.js"></script>
+    <script type="text/javascript" src="/assets/js/flv.min.js"></script>
 </head>
 
 <body style="overflow: hidden">
@@ -190,19 +191,35 @@
 
             <div style="width:1000px;height:560px;line-height: 25px;margin: 0 5px;float: left;position: relative;right: 50%;padding-top:60px">
 
-                <div class="prism-player" id="J_prismPlayer"></div>
+                <!--<div class="prism-player" id="J_prismPlayer"></div>-->
+                <!--<script th:inline="javascript">-->
+                    <!--var streamUrl = [[${streamUrl}]];-->
+                    <!--var streamCode = [[${live.streamCode}]];-->
+                    <!--var player = new prismplayer({-->
+                        <!--id: "J_prismPlayer", // 容器id-->
+                        <!--source: streamUrl+streamCode,  // 视频url 支持互联网可直接访问的视频地址-->
+                        <!--autoplay: true,      // 自动播放-->
+                        <!--width: "100%",       // 播放器宽度-->
+                        <!--height: "500px",      // 播放器高度-->
+                        <!--isLive:true,-->
+                        <!--showBarTime:"500"-->
+                    <!--});-->
+                <!--</script>-->
+
+                <video id="videoElement" style="width:1000px;height:560px;"></video>
                 <script th:inline="javascript">
-                    var streamUrl = [[${streamUrl}]];
-                    var streamCode = [[${live.streamCode}]];
-                    var player = new prismplayer({
-                        id: "J_prismPlayer", // 容器id
-                        source: streamUrl+streamCode,  // 视频url 支持互联网可直接访问的视频地址
-                        autoplay: true,      // 自动播放
-                        width: "100%",       // 播放器宽度
-                        height: "500px",      // 播放器高度
-                        isLive:true,
-                        showBarTime:"500"
-                    });
+                    /*<![CDATA[*/
+                    if (flvjs.isSupported()) {
+                        var videoElement = document.getElementById('videoElement');
+                        var flvPlayer = flvjs.createPlayer({
+                            type: "flv",
+                            url: "http://35.201.191.227:8099/live?app=live&stream=061461c074cc4831bb81873b48a5a9b5"
+                        });
+                        flvPlayer.attachMediaElement(videoElement);
+                        flvPlayer.load();
+                        flvPlayer.play();
+                    }
+                    /*]]>*/
                 </script>
 
                 <div th:if="${live.liveName != null and live.userName != null}" style="background-color: rgba(255,255,255,0.2);height:50px">
