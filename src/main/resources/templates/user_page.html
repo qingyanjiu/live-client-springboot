@@ -249,13 +249,14 @@
                     <!--});-->
                 <!--</script>-->
 
-                <video id="videoElement" style="width:1000px;height:560px;line-height: 25px;margin: 0 5px;float: left;position: relative;right: 50%;padding-top:20px"></video>
+                <video controls="controls" autoplay="autoplay" id="videoElement" style="width:1000px;height:560px;line-height: 25px;margin: 0 5px;float: left;position: relative;right: 50%;padding-top:20px"></video>
                 <script th:inline="javascript">
                     /*<![CDATA[*/
                     if (flvjs.isSupported()) {
                         var videoElement = document.getElementById('videoElement');
                         var flvPlayer = flvjs.createPlayer({
                             type: "flv",
+                            isLive: true,
                             url: "http://35.201.191.227:8099/live?app=live&stream=061461c074cc4831bb81873b48a5a9b5"
                         });
                         flvPlayer.attachMediaElement(videoElement);
