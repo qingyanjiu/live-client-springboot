@@ -212,47 +212,23 @@
                     var u = navigator.userAgent, app = navigator.appVersion;
                     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                     var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                    if (isAndroid) {
-                       //这个是安卓操作系统
-                    }
+                    
                     if (isIOS) {
-                    //这个是ios操作系统
-                    }
-                    
-                    
-                    if (flvjs.isSupported()) {
                         var videoElement = document.getElementById('videoElement');
-                        var flvPlayer = flvjs.createPlayer({
-                            type: "flv",
-                            isLive: true,
-                            url: [[${httpflvUrl}]]+[[${live.streamCode}]]
-                        });
-                        flvPlayer.attachMediaElement(videoElement);
-                        flvPlayer.load();
-                        flvPlayer.play();
+                        videoElement.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
                     }
-                /*]]>*//*<![CDATA[*/
-                    var u = navigator.userAgent, app = navigator.appVersion;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-                    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                    if (isAndroid) {
-                       //这个是安卓操作系统
-                    }
-                    if (isIOS) {
-                    //这个是ios操作系统
-                    }
-                    
-                    
-                    if (flvjs.isSupported()) {
-                        var videoElement = document.getElementById('videoElement');
-                        var flvPlayer = flvjs.createPlayer({
-                            type: "flv",
-                            isLive: true,
-                            url: [[${httpflvUrl}]]+[[${live.streamCode}]]
-                        });
-                        flvPlayer.attachMediaElement(videoElement);
-                        flvPlayer.load();
-                        flvPlayer.play();
+                    else{
+                        if (flvjs.isSupported()) {
+                            var videoElement = document.getElementById('videoElement');
+                            var flvPlayer = flvjs.createPlayer({
+                                type: "flv",
+                                isLive: true,
+                                url: [[${httpflvUrl}]]+[[${live.streamCode}]]
+                            });
+                            flvPlayer.attachMediaElement(videoElement);
+                            flvPlayer.load();
+                            flvPlayer.play();
+                        }
                     }
                 /*]]>*/
                 </script>

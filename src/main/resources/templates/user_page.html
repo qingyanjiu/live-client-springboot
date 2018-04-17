@@ -252,18 +252,28 @@
                 <video controls="controls" autoplay="autoplay" id="videoElement" style="width:1000px;height:560px;line-height: 25px;margin: 0 5px;float: left;position: relative;right: 50%;padding-top:20px"></video>
                 <script th:inline="javascript">
                     /*<![CDATA[*/
-                    if (flvjs.isSupported()) {
+                    var u = navigator.userAgent, app = navigator.appVersion;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+                    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                    
+                    if (isIOS) {
                         var videoElement = document.getElementById('videoElement');
-                        var flvPlayer = flvjs.createPlayer({
-                            type: "flv",
-                            isLive: true,
-                            url: [[${httpflvUrl}]]+[[${live.streamCode}]]
-                        });
-                        flvPlayer.attachMediaElement(videoElement);
-                        flvPlayer.load();
-                        flvPlayer.play();
+                        videoElement.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
                     }
-                    /*]]>*/
+                    else{
+                        if (flvjs.isSupported()) {
+                            var videoElement = document.getElementById('videoElement');
+                            var flvPlayer = flvjs.createPlayer({
+                                type: "flv",
+                                isLive: true,
+                                url: [[${httpflvUrl}]]+[[${live.streamCode}]]
+                            });
+                            flvPlayer.attachMediaElement(videoElement);
+                            flvPlayer.load();
+                            flvPlayer.play();
+                        }
+                    }
+                /*]]>*/
                 </script>
             </div>
         </div>
