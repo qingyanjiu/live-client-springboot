@@ -214,7 +214,7 @@
                         var flvPlayer = flvjs.createPlayer({
                             type: "flv",
                             isLive: true,
-                            url: "http://35.201.191.227:8099/live?app=live&stream=061461c074cc4831bb81873b48a5a9b5"
+                            url: [[${httpflvUrl}]]+[[${live.streamCode}]]
                         });
                         flvPlayer.attachMediaElement(videoElement);
                         flvPlayer.load();
