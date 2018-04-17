@@ -29,6 +29,9 @@ public class LiveController {
 
     @Value("${live.server.streamUrl}")
     private String streamUrl;
+    
+    @Value("${live.server.httpflvUrl}")
+    private String httpflvUrl;
 
     @RequestMapping("/")
     @ResponseBody
@@ -58,6 +61,7 @@ public class LiveController {
         model.addAttribute("live", live);
         model.addAttribute("title", title);
         model.addAttribute("streamUrl", streamUrl);
+        model.addAttribute("httpflvUrl", httpflvUrl);
         return "user_page";
     }
 
@@ -85,6 +89,7 @@ public class LiveController {
             }
             model.addAttribute("live", live);
             model.addAttribute("streamUrl", streamUrl);
+            model.addAttribute("httpflvUrl", httpflvUrl);
         }
         return result;
     }
