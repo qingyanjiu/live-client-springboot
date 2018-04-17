@@ -95,15 +95,15 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li><a href="#" onClick="toggleMenu('0')">首页</a></li>
-                        <li th:if="${session.SPRING_SECURITY_CONTEXT != null}">
+                        <!--<li th:if="${session.SPRING_SECURITY_CONTEXT != null}">
                             <a href="#myroom" onClick="toggleMenu('3')">我的直播间</a>
-                        </li>
+                        </li>-->
                         <li><a href="#register" onClick="toggleMenu('1')">新用户注册</a></li>
                         <li th:if="${session.SPRING_SECURITY_CONTEXT != null}">
                             <a href="#mypage" onClick="toggleMenu('9')">
                                 <img src="/assets/img/head.jpg"
                                      style="height:20px;width:20px;border-radius: 10px"/>
-                                <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></span>
+                                <span th:text="直播间设置"></span>
                             </a>
                         </li>
                         <li th:if="${session.SPRING_SECURITY_CONTEXT == null}">
@@ -147,10 +147,10 @@
 
 
     <div class="container" id="login" style="display:none">
-        <form class="form-signin">
+        <form id="loginForm" action="/login" method="POST" class="form-signin">
             <h3 class="form-signin-heading">&nbsp;&nbsp;用户登录</h3>
-            <input id="username" type="text" class="input-block-level" placeholder="邮箱/账号/手机号"/>
-            <input id="password" type="password" class="input-block-level" placeholder="密码"/>
+            <input name="userName" id="userName" type="text" class="input-block-level" placeholder="邮箱/账号/手机号"/>
+            <input name="password" id="password" type="password" class="input-block-level" placeholder="密码"/>
             <button onClick="login()" class="btn btn-large btn-success" type="button">
                 <i class="icon-ok icon-white" style="margin-left:-10px"></i>&nbsp;&nbsp;登录
             </button>
@@ -177,7 +177,6 @@
 <script src="/assets/js/bootstrap-typeahead.js"></script>
 
 <script th:inline="javascript">
-    var username = [[${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}]];
 
     function toggleMenu(obj) {
         if (obj == '0') {
@@ -193,9 +192,9 @@
             $("#steamlist").hide();
             $("#regi").hide();
         }
-        else if (obj == '3') {
-            document.location = "/live/show?userName="+ username;
-        }
+        //else if (obj == '3') {
+        //    document.location = "/live/show?userName="+ username;
+        //}
         else if (obj == '9') {
            document.location = "/live/userpage";
         }
@@ -207,59 +206,12 @@
     }
 
     function login() {
-        $.ajax({
-            //提交数据的类型 POST GET
-            type: "POST",
-            //提交的网址
-            url: "/user/login",
-            //提交的数据
-            data: {username: $("#username").val(), password: $("#password").val()},
-            //返回数据的格式
-            datatype: "json",
-            //"xml", "html", "script", "json", "jsonp", "text".
-            success: function (data) {
-                if (data.result === 'success') {
-//                    alert("登录成功");
-                    document.location.href = "/toLive";
-                }
-                else if (data.result === 'empty') {
-                    alert("用户名或密码错误");
-                }
-            },
-            //调用出错执行的函数
-            error: function () {
-                alert("系统错误，请稍后重试");
-            }
-        });
+        $("#loginForm").submit();
     }
 
 
     function register() {
-        $.ajax({
-            //提交数据的类型 POST GET
-            type: "POST",
-            //提交的网址
-            url: "/user/add",
-            //提交的数据
-            data: {
-                userName: $("#register_username").val(),
-                password: $("#register_password").val()
-            },
-            //返回数据的格式
-            datatype: "json",
-            success: function (data) {
-                if (data.result === 'success') {
-                    alert("注册成功");
-                }
-                else if (data.result === 'exist') {
-                    alert("用户已存在");
-                }
-            },
-            //调用出错执行的函数
-            error: function (err) {
-                alert("系统错误，请稍后重试");
-            }
-        });
+        $("#loginForm").submit();
     }
 
 
