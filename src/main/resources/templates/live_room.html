@@ -220,8 +220,8 @@
                     if (isIOS) {
                         $("#videoMain").hide();
                         $("#iosLive").show();
-                        var hlsLive = document.getElementById('hlsLive');
-                        hlsLive.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
+                        var iosLive = document.getElementById('iosLive');
+                        iosLive.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
                     }
                     else if(isAndroid) {
                         if (flvjs.isSupported()) {
