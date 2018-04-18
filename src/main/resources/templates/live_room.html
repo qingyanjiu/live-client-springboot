@@ -128,7 +128,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png"/>
     <link rel="shortcut icon" href="/assets/ico/favicon.png"/>
-
+    <script src="/assets/js/jquery.js"></script>
 
     <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/1.5.2/skins/default/index-min.css" />
     <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.5.2/prism-min.js"></script>
@@ -172,7 +172,10 @@
     <!-- Begin page content -->
 
     <div th:if="${pass == true}" class="container" id="live">
-        <div style="position: absolute;left: 50%;height:800px">
+    
+        <video id="hlsLive" style="width:100%;height:auto;display:none;margin-top:20%" controls="controls" autoplay="autoplay"></video>
+    
+        <div id="videoMain" style="position: absolute;left: 50%;height:800px">
             <!-- 弹幕区域 -->
             <main id="main"
                   style="width:975px;height:400px;line-height: 25px;margin: 0 5px;float: left;position: absolute;right: 50%;padding-top:80px;z-index:1;">
@@ -213,11 +216,11 @@
                     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                     var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                     
-                    if (isIOS) {
-                        var videoElement = document.getElementById('videoElement');
-                        videoElement.style.witdh='100%';
-                        videoElement.style.height='auto';
-                        videoElement.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
+                    if (isIOS || isAndroid) {
+                        $("#videoMain").hide();
+                        $("#hlsLive").show();
+                        var hlsLive = document.getElementById('hlsLive');
+                        hlsLive.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
                     }
                     else{
                         if (flvjs.isSupported()) {
@@ -313,7 +316,7 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/assets/js/jquery.js"></script>
+
 <script src="/assets/js/bootstrap-transition.js"></script>
 <script src="/assets/js/bootstrap-alert.js"></script>
 <script src="/assets/js/bootstrap-modal.js"></script>
