@@ -173,7 +173,8 @@
 
     <div th:if="${pass == true}" class="container" id="live">
     
-        <video id="hlsLive" style="width:100%;height:auto;display:none;margin-top:20%" controls="controls" autoplay="autoplay"></video>
+        <video id="iosLive" style="width:100%;height:auto;display:none;margin-top:20%" controls="controls" autoplay="autoplay"></video>
+        <video id="androidLive" style="width:100%;height:auto;display:none;margin-top:20%" controls="controls" autoplay="autoplay"></video>
     
         <div id="videoMain" style="position: absolute;left: 50%;height:800px">
             <!-- 弹幕区域 -->
@@ -216,11 +217,26 @@
                     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                     var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                     
-                    if (isIOS || isAndroid) {
+                    if (isIOS) {
                         $("#videoMain").hide();
-                        $("#hlsLive").show();
+                        $("#iosLive").show();
                         var hlsLive = document.getElementById('hlsLive');
                         hlsLive.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
+                    }
+                    else if(isAndroid) {
+                        if (flvjs.isSupported()) {
+                            $("#videoMain").hide();
+                            $("#androidLive").show();
+                            var androidLive = document.getElementById('androidLive');
+                            var flvPlayer = flvjs.createPlayer({
+                                type: "flv",
+                                isLive: true,
+                                url: [[${httpflvUrl}]]+[[${live.streamCode}]]
+                            });
+                            flvPlayer.attachMediaElement(androidLive);
+                            flvPlayer.load();
+                            flvPlayer.play();
+                        }
                     }
                     else{
                         if (flvjs.isSupported()) {
