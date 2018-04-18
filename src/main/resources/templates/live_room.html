@@ -215,6 +215,8 @@
                     
                     if (isIOS) {
                         var videoElement = document.getElementById('videoElement');
+                        videoElement.style.witdh='100%';
+                        videoElement.style.height='auto';
                         videoElement.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
                     }
                     else{
