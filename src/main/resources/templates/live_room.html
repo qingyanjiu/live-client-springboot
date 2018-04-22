@@ -133,6 +133,7 @@
     <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/1.5.2/skins/default/index-min.css" />
     <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.5.2/prism-min.js"></script>
     <script type="text/javascript" src="/assets/js/flv.min.js"></script>
+    <script type="text/javascript" src="/assets/js/flvHelper.js"></script>
 </head>
 
 <body style="overflow: hidden">
@@ -210,7 +211,9 @@
                     <!--});-->
                 <!--</script>-->
 
-                <video id="videoElement" style="width:1000px;height:560px;" controls="controls" autoplay="autoplay"></video>
+                <video id="videoElement" style="width:1000px;height:560px;" controls="controls" autoplay="autoplay">
+                    Your browser is too old which doesn't support HTML5 video.
+                </video>
                 <script th:inline="javascript">
                    /*<![CDATA[*/
                     var u = navigator.userAgent, app = navigator.appVersion;
@@ -228,27 +231,13 @@
                             $("#videoMain").hide();
                             $("#androidLive").show();
                             var androidLive = document.getElementById('androidLive');
-                            var flvPlayer = flvjs.createPlayer({
-                                type: "flv",
-                                isLive: true,
-                                url: [[${httpflvUrl}]]+[[${live.streamCode}]]
-                            });
-                            flvPlayer.attachMediaElement(androidLive);
-                            flvPlayer.load();
-                            flvPlayer.play();
+                            flv_load(androidLive, [[${httpflvUrl}]]+[[${live.streamCode}]]);
                         }
                     }
                     else{
                         if (flvjs.isSupported()) {
                             var videoElement = document.getElementById('videoElement');
-                            var flvPlayer = flvjs.createPlayer({
-                                type: "flv",
-                                isLive: true,
-                                url: [[${httpflvUrl}]]+[[${live.streamCode}]]
-                            });
-                            flvPlayer.attachMediaElement(videoElement);
-                            flvPlayer.load();
-                            flvPlayer.play();
+                            flv_load(videoElement, [[${httpflvUrl}]]+[[${live.streamCode}]]);
                         }
                     }
                 /*]]>*/

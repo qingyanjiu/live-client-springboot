@@ -112,6 +112,7 @@
     <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.5.2/prism-min.js"></script>
 
     <script type="text/javascript" src="/assets/js/flv.min.js"></script>
+    <script type="text/javascript" src="/assets/js/flvHelper.js"></script>
 </head>
 
 <body style="overflow: hidden">
@@ -256,7 +257,7 @@
                     var u = navigator.userAgent, app = navigator.appVersion;
                     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                     var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                    
+
                     if (isIOS) {
                         var videoElement = document.getElementById('videoElement');
                         videoElement.src = [[${hlsUrl}]]+[[${live.streamCode}]]+'.m3u8';
@@ -264,14 +265,7 @@
                     else{
                         if (flvjs.isSupported()) {
                             var videoElement = document.getElementById('videoElement');
-                            var flvPlayer = flvjs.createPlayer({
-                                type: "flv",
-                                isLive: true,
-                                url: [[${httpflvUrl}]]+[[${live.streamCode}]]
-                            });
-                            flvPlayer.attachMediaElement(videoElement);
-                            flvPlayer.load();
-                            flvPlayer.play();
+                            flv_load(videoElement, [[${httpflvUrl}]]+[[${live.streamCode}]]);
                         }
                     }
                 /*]]>*/
