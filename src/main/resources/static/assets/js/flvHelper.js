@@ -7,7 +7,7 @@ function flv_load(element, url) {
         hasVideo: true
     };
     mediaDataSource['url'] = url;
-    console.log('MediaDataSource', mediaDataSource);
+    // console.log('MediaDataSource', mediaDataSource);
     flv_load_mds(element, mediaDataSource);
 }
 
