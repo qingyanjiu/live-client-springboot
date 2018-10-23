@@ -11,4 +11,5 @@ public class LiveclientApplication {
     public static void main(String[] args) {
         SpringApplication.run(LiveclientApplication.class, args);
     }
+
 }
